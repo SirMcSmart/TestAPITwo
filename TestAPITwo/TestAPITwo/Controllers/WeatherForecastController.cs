@@ -43,7 +43,7 @@ namespace TestAPITwo.Controllers
         }
 
         [HttpGet(Name = "GetCountryWeatherForecast")]
-        public IEnumerable<WeatherForecast> GetCountryWeatherForecast(string weather)
+        public IEnumerable<WeatherForecast> GetCountryWeatherForecast(string weather, string country)
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
