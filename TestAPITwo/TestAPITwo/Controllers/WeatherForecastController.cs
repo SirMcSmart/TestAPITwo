@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace TestAPITwo.Controllers
 {
@@ -52,6 +53,30 @@ namespace TestAPITwo.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [Route("CheckValidEmail")]
+        [HttpPost]
+        public async Task<IActionResult> CheckValidEmail(string email)
+        {
+            string expresion;
+            expresion = "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+            if (Regex.IsMatch(email, expresion))
+            {
+                if (Regex.Replace(email, expresion, string.Empty).Length == 0)
+                {
+                    return Ok("Email is in the correct format");
+                }
+                else
+                {
+                    return BadRequest("Email is not in the correct format");
+                }
+            }
+            else
+            {
+                return BadRequest("Email is not in the correct format");
+            }
+
         }
     }
 }
